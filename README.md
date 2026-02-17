@@ -119,24 +119,6 @@ Health check endpoint.
 ### GET /ready
 Readiness check endpoint.
 
-## Configuration
-
-Environment variables (see `.env`):
-
-| Variable | Default | Description |
-|----------|---------|-------------|
-| PORT | 3000 | Server port |
-| REDIS_HOST | localhost | Redis host |
-| REDIS_PORT | 6379 | Redis port |
-| MONGO_URI | mongodb://localhost:27017/event-gateway | MongoDB connection URI |
-| HMAC_SECRET | your-super-secret-key | HMAC secret for signature validation |
-| QUEUE_CONCURRENCY | 20 | Worker concurrency |
-| QUEUE_MAX_RATE | 100 | Max jobs per duration |
-| QUEUE_RATE_DURATION | 1000 | Rate limit duration (ms) |
-| MAX_RETRY_ATTEMPTS | 5 | Max retry attempts |
-| RETRY_DELAY | 1000 | Initial retry delay (ms) |
-| ROUTING_SERVICE_DELAY_MS | 2000 | Simulated routing service delay |
-
 ## Dead Letter Queue (DLQ) Strategy
 
 Events that fail after all retry attempts (default: 5) are automatically moved to the DLQ.
