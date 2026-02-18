@@ -171,6 +171,21 @@ Expected results:
 - Events processed asynchronously
 - Retry logs visible for simulated failures
 
+## Unit Testing
+
+Run the unit tests:
+
+```bash
+# Run tests
+npm test
+
+# Run tests in watch mode
+npm run test:watch
+
+# Run tests with coverage
+npm run test:coverage
+```
+
 ## Project Structure
 
 ```
@@ -196,7 +211,12 @@ src/
 │       └── index.ts
 └── shared/
     ├── logger.ts           # Pino logger setup
-    └── hmac.ts             # HMAC validation utilities
+    ├── hmac.ts             # HMAC validation utilities
+    └── rateLimiter.ts      # HTTP rate limiting middleware
+tests/
+├── hmac.test.ts            # HMAC validation tests
+├── event.test.ts           # Event payload validation tests
+└── queue.test.ts           # Queue configuration tests
 ```
 
 ## Design Decisions & Tradeoffs
@@ -211,7 +231,23 @@ src/
 
 5. **Worker Concurrency (20)**: Balanced between throughput and resource consumption.
 
-6. **Rate Limiting (100/s)**: Prevents overwhelming downstream services.
+6. **Rate Limiting**: 
+   - HTTP-level: 100 requests/second per IP using `express-rate-limit`
+   - Worker-level: 100 jobs/second using BullMQ limiter
+
+## Environment Variables
+
+Copy `.env.example` to `.env` and configure:
+
+```bash
+cp .env.example .env
+```
+
+Key variables:
+- `HMAC_SECRET`: Secret key for HMAC signature validation
+- `RATE_LIMIT_MAX_REQUESTS`: Max HTTP requests per window (default: 100)
+- `QUEUE_CONCURRENCY`: Worker concurrency level (default: 20)
+- `MAX_RETRY_ATTEMPTS`: Max retry attempts before DLQ (default: 5)
 
 ## License
 
