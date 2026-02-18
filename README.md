@@ -81,7 +81,7 @@ Ingest a new event.
 **Body:**
 ```json
 {
-  "eventId": "optional-uuid",
+  "eventId": "uuid",
   "type": "ORDER_CREATED",
   "payload": {
     "orderId": "12345",
@@ -162,11 +162,7 @@ Run the load test to verify the system handles 100 concurrent requests:
 docker-compose up --build
 
 # In another terminal, run load test
-npx autocannon -c 100 -d 10 -m POST \
-  -H "Content-Type: application/json" \
-  -H "x-hmac-signature: $(node -e "console.log(require('crypto').createHmac('sha256', 'your-super-secret-key-change-in-production').update(JSON.stringify({type:'test',payload:{test:true}})).digest('hex'))")" \
-  -b '{"type":"test","payload":{"test":true}}' \
-  http://localhost:3000/events
+npm run load-test
 ```
 
 Expected results:
@@ -220,4 +216,3 @@ src/
 ## License
 
 ISC
-
