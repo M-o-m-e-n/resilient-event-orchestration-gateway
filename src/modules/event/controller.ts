@@ -8,7 +8,7 @@ import { getEventById, getEventsByStatus } from './repository';
 const HMAC_SECRET = process.env.HMAC_SECRET;
 
 export interface EventPayload {
-  eventId?: string;
+  eventId: string;
   type: string;
   payload: Record<string, unknown>;
 }
