@@ -7,7 +7,7 @@
     "start": "node dist/index.js",
     "dev": "nodemon --exec ts-node src/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "load-test": "npx autocannon -c 100 -d 10 -m POST -H \"Content-Type: application/json\" -H \"x-hmac-signature: test\" -b \"{\\\"type\\\":\\\"test\\\",\\\"payload\\\":{}}\" http://localhost:3000/events"
+    "load-test": "node scripts/load-test.js"
   },
   "keywords": [],
   "author": "",
@@ -25,6 +25,7 @@
   "devDependencies": {
     "@types/express": "^5.0.6",
     "@types/node": "^25.2.3",
+    "autocannon": "^7.15.0",
     "nodemon": "^3.1.11",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3"
